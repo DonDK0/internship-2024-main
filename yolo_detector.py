@@ -59,7 +59,7 @@ if __name__ == "__main__":
             frame = cv2.putText(frame, 'Don-Clicknext-Internship-2024', org, font,  
                    fontScale, color, thickness, cv2.LINE_AA) 
             # Write result to video
-            video_writer.write(frame_result)
+            # video_writer.write(frame_result)
 
             # Show result
             cv2.namedWindow("Video", cv2.WINDOW_NORMAL)
