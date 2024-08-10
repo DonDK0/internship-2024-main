@@ -51,6 +51,13 @@ if __name__ == "__main__":
         if ret:
             # Detect motorcycle from image frame
             frame_result = detect_object(frame)
+            font = cv2.FONT_HERSHEY_SIMPLEX 
+            org = (750, 25) 
+            fontScale = 1
+            color = (0, 0, 255) 
+            thickness = 2
+            frame = cv2.putText(frame, 'Don-Clicknext-Internship-2024', org, font,  
+                   fontScale, color, thickness, cv2.LINE_AA) 
             # Write result to video
             video_writer.write(frame_result)
 
