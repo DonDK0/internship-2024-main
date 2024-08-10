@@ -8,29 +8,27 @@ model = YOLO("yolov8n.pt")
 
 def draw_boxes(frame, boxes):
     """Draw detected bounding boxes on image frame"""
-
-    # Create annotator object
     annotator = Annotator(frame)
-    for box in boxes:
-        class_id = box.cls
-        class_name = model.names[int(class_id)]
-        coordinator = box.xyxy[0]
-        confidence = box.conf
+    if boxes:
+        # Create annotator object
+        for box in boxes:
+            class_id = box.cls
+            class_name = model.names[int(class_id)]
+            coordinator = box.xyxy[0]
+            confidence = box.conf
 
-    # Draw bounding box
-    annotator.box_label(
-        box=coordinator, label=class_name, color=colors(class_id, True)
-    )
+        # Draw bounding box
+        annotator.box_label(
+            box=coordinator, label=class_name, color=colors(class_id, True)
+        )
 
     return annotator.result()
 
 
 def detect_object(frame):
     """Detect object from image frame"""
-
     # Detect object from image frame
-    results = model.predict(frame, classes=[15])
-
+    results = model.predict(frame, classes=[15], imgsz=320, iou=0.5,max_det=5, conf=0.5)
     for result in results:
         frame = draw_boxes(frame, result.boxes)
 
@@ -53,7 +51,6 @@ if __name__ == "__main__":
         if ret:
             # Detect motorcycle from image frame
             frame_result = detect_object(frame)
-
             # Write result to video
             video_writer.write(frame_result)
 
